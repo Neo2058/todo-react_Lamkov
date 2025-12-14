@@ -7,10 +7,17 @@ const AddTaskForm = () => {
   return (
     <form
       className="todo__form"
-      data-js-todo-new-task-form
     >
-      <Field />
-      <Button />
+      <Field
+        className="todo__field"
+        label="New Task Title"
+        id="new-task"
+      />
+      <Button
+        type="submit"
+      >
+        Add
+      </Button>
     </form>
   )
 }
