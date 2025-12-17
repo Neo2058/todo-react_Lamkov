@@ -3,46 +3,96 @@ import AddTaskForm from "../AddTaskForm/index.js";
 import SearchTaskForm from "../SearchTaskForm/index.js";
 import ToDoInfo from "../ToDoInfo/index.js";
 import ToDoList from "../ToDoList/index.js";
+import {useEffect, useState} from "react";
 
 const ToDo = () => {
 
-  const tasks = [
+  const [tasks, setTasks] = useState(() => {
+      const savedTasks = localStorage.getItem('tasks')
 
-  ]
+      if (savedTasks) {
+        return JSON.parse(savedTasks)
+      }
+
+      return [
+        {id: 1, title: 'Teach React', isDone: false},
+        {id: 2, title: 'Write documents your padovan', isDone: true},
+      ]
+    })
+
+  const [newTaskTitle, setNewTaskTitle] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
 
   const deleteAllTasks = () => {
+    const isConfirmed = confirm('Are you sure you want to delete all tasks?')
+
+    if (isConfirmed) {
+      setTasks([])
+    }
   }
 
   const deleteTask = (taskId) => {
-
+    setTasks(
+      tasks.filter((task) => task.id !== taskId)
+    )
   }
 
   const toggleTaskComplete = (taskId, isDone) => {
-
-  }
-
-  const filterTask = (query) => {
-    console.log(`Поиск: ${query}`)
+    setTasks(
+      tasks.map((task) => {
+        if (task.id === taskId) {
+          return {...task, isDone}
+        }
+        return task
+      })
+    )
   }
 
   const addTask = () => {
-    console.log("Task added")
+    if(newTaskTitle.trim().length > 0){
+      const newTask = {
+        id: crypto?.randomUUID() ?? Date.now().toString(),
+        title: newTaskTitle,
+        isDone: false,
+      }
+
+      setTasks([...tasks, newTask])
+      setNewTaskTitle('')
+      setSearchQuery('')
+    }
   }
+
+  useEffect(() => {
+    localStorage.setItem('tasks', JSON.stringify(tasks))
+  },[tasks])
+
+  const clearSearchQuery = searchQuery.trim().toLowerCase()
+  const filteredTasks = clearSearchQuery.length > 0
+    ? tasks.filter(({ title }) => title.toLowerCase().includes(clearSearchQuery))
+    : null
 
   return (
     <div
       className="todo"
     >
       <h1 className="todo__title">To Do List</h1>
-      <AddTaskForm addTask={addTask} />
-      <SearchTaskForm onSearchInput={filterTask} />
+      <AddTaskForm
+        addTask={addTask}
+        newTaskTitle={newTaskTitle}
+        setNewTaskTitle={setNewTaskTitle}
+      />
+      <SearchTaskForm
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+      />
       <ToDoInfo
         total={tasks.length}
         done = {tasks.filter(({ isDone }) => isDone).length}
         onDeleteAllButtonClick={deleteAllTasks}
       />
       <ToDoList
-        task={tasks}
+        tasks={tasks}
+        filteredTasks={filteredTasks}
         onDeleteTaskButtonClick={deleteTask}
         onTaskCompleteChange={toggleTaskComplete}
       />
