@@ -15,7 +15,7 @@ const  SearchTaskForm = (props) => {
     >
       <Field
         className="todo__field"
-        label="Search Task"
+        label="Поиск задачи"
         id="search-task"
         type="search"
         value={searchQuery}

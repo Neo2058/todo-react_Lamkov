@@ -1,6 +1,7 @@
 .button {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     height: var(--input-height);
     padding: 12px;
     color: var(--color-gray-1);
