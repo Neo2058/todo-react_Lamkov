@@ -1,4 +1,5 @@
 import './ToDoItem.scss'
+import {memo} from "react";
 
 const ToDoItem = (props) => {
 
@@ -55,4 +56,4 @@ const ToDoItem = (props) => {
   )
 }
 
-export default ToDoItem
+export default memo(ToDoItem)
