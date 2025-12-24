@@ -32,7 +32,7 @@ const Field = (props) => {
         ref={ref}
       />
       {error && (
-        <span className="field__error" title={error}>{error}</span>
+        <span className="field__error" title={error }>{error}</span>
       )}
     </div>
   )
