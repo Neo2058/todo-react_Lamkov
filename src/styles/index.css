@@ -2,6 +2,7 @@
 @import './fonts.css';
 @import './variables.css';
 @import './globals.css';
+@import './utils.css';
 
 @import './components/button.css';
 @import './components/field.css';
