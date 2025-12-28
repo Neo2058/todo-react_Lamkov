@@ -1,9 +1,11 @@
-import './ToDoList.scss'
 import ToDoItem from "../ToDoItem/index.js";
 import {useContext} from "react";
 import {TasksContext} from "../../context/TasksContext.jsx";
+import styles from './ToDoList.module.scss'
 
-const ToDoList = () => {
+const ToDoList = (props) => {
+  const { styles } = props
+
   const {
     tasks,
     filteredTasks,
@@ -14,7 +16,7 @@ const ToDoList = () => {
 
   if(!hasTasks) {
     return <div
-      className="todo__empty-message"
+      className={styles.emptyMessage}
     >
       Задач пока нет
     </div>
@@ -22,7 +24,7 @@ const ToDoList = () => {
 
   if(hasTasks && isEmptyFilteredTasks) {
     return <div
-      className="todo__empty-message"
+      className={styles.emptyMessage}
     >
       Задача не найдена
     </div>
@@ -30,11 +32,11 @@ const ToDoList = () => {
 
   return (
     <ul
-      className="todo__list"
+      className={styles.list}
     >
       {(filteredTasks ?? tasks).map((task) => (
         <ToDoItem
-          className="todo__item"
+          className={styles.item}
           key={task.id}
           {...task}
         />

@@ -2,7 +2,9 @@ import './ToDoInfo.scss'
 import {memo, useContext, useMemo} from "react";
 import { TasksContext } from "../../context/TasksContext.jsx";
 
-const ToDoInfo = () => {
+const ToDoInfo = (props) => {
+  const { styles } = props
+
    const {
      tasks,
      deleteAllTasks,
@@ -16,13 +18,13 @@ const ToDoInfo = () => {
 
 
   return (
-    <div className="todo__info">
-      <div className="todo__total-tasks">
+    <div className={styles.info}>
+      <div className={styles.totalTasks}>
         Выполнено {done} из {total}
       </div>
       {hasTasks && (
         <button
-          className="todo__delete-all-button"
+          className={styles.deleteAllButton}
           type="button"
           onClick={deleteAllTasks}
         >
