@@ -16,8 +16,8 @@ const Field = (props) => {
   return (
     <div className={`${styles.field} ${className}`}>
       <label
-        htmlFor={id}
         className={styles.label}
+        htmlFor={id}
       >
         {label}
       </label>
@@ -32,7 +32,7 @@ const Field = (props) => {
         ref={ref}
       />
       {error && (
-        <span className={styles.error} title={error }>{error}</span>
+        <span className={styles.error} title={error}>{error}</span>
       )}
     </div>
   )
