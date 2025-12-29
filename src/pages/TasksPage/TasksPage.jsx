@@ -1,6 +1,6 @@
+import {TasksProvider} from "../../entities/todo";
+import ToDo from "../../widgets/ToDo";
 import './TasksPage.scss'
-import {TasksProvider} from "../../context/TasksContext.jsx";
-import ToDo from "../../components/ToDo/ToDo.jsx";
 
 const TasksPage = () => {
 
