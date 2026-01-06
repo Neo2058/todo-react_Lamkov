@@ -2,6 +2,7 @@ import {memo, useContext, useRef} from "react";
 import {TasksContext} from "../../model/TasksContext.jsx";
 import RouterLink from "../../../../shared/ui/RouterLink/index.js";
 import styles from './ToDoItem.module.scss'
+import {highlightCaseInsensitive} from "@/shared/utils/hightlight.js";
 
 const ToDoItem = (props) => {
 
@@ -19,7 +20,11 @@ const ToDoItem = (props) => {
     toggleTaskComplete,
     disappearingTaskId,
     appearingTaskId,
+    searchQuery,
   } = useContext(TasksContext);
+
+  const highLightText = highlightCaseInsensitive(title, searchQuery)
+
 
   return (
     <li
@@ -50,7 +55,7 @@ const ToDoItem = (props) => {
         to={`/tasks/${id}`}
         aria-label="Task detail page"
       >
-        {title}
+        <span dangerouslySetInnerHTML={{ __html: highLightText }} />
       </RouterLink>
       <button
         className={styles.deleteButton}
